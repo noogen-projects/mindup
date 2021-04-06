@@ -1,0 +1,19 @@
+[package]
+name = "mindup_client"
+version = "0.1.0"
+authors = [
+    "Alexander Mescheryakov <freecoder.xx@gmail.com>",
+    "Noogen Team <info.noogen@gmail.com>",
+]
+edition = "2018"
+license = "MIT"
+repository = "https://github.com/noogen-projects/mindup"
+description = "The mindup dapla-application client WASM"
+
+[dependencies]
+anyhow = "1.0"
+strum = { version = "0.20", features = ["derive"] }
+yew = { version = "0.17", features = ["web_sys"] }
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
+mindup_common = { path = "../mindup_common" }
+dapla_yew = { git = "https://github.com/noogen-projects/dapla.git" }

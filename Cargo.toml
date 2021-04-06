@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "app_runner",
+    "mindup_client",
+    "mindup_common",
+    "mindup_server",
+]
+
+[profile.release]
+lto = true

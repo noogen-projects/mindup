@@ -1,0 +1,10 @@
+[application]
+title = "MindUp"
+enabled = true
+
+[permissions]
+required = ["database", "http"]
+allowed = ["database", "http"]
+
+[database]
+path = "daps/mindup/mindup.db"

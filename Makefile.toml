@@ -1,0 +1,110 @@
+[config]
+default_to_workspace = false
+additional_profiles = ["debug"]
+
+
+[tasks.choose_profile.env]
+MODE = "release"
+ADDITIONAL = "--release"
+
+[tasks.choose_profile.env.debug]
+MODE = "debug"
+ADDITIONAL = "--color=auto" # it's a stub
+
+[tasks.wasm_build_prepare]
+dependencies = ["choose_profile"]
+
+[tasks.wasm_build_prepare.env]
+RUSTFLAGS = "-Copt-level=s"
+
+[tasks.wasm_build_prepare.env.debug]
+RUSTFLAGS = ""
+
+
+[tasks.create_dap_dir]
+script_runner = "@duckscript"
+script = "mkdir daps/mindup"
+
+[tasks.copy_static]
+script_runner = "@duckscript"
+script = '''
+rm -r daps/mindup/static
+cp static daps/mindup/
+'''
+dependencies = ["create_dap_dir"]
+
+[tasks.copy_settings]
+script_runner = "@duckscript"
+script = '''
+rm daps/mindup/settings.toml
+cp mindup_server/settings.toml daps/mindup/settings.toml
+'''
+dependencies = ["create_dap_dir"]
+
+
+[tasks.build_client]
+command = "cargo"
+args = ["build", "-p", "mindup_client", "--target", "wasm32-unknown-unknown", "${ADDITIONAL}"]
+dependencies = ["wasm_build_prepare"]
+
+[tasks.build_server]
+command = "cargo"
+args = ["build", "-p", "mindup_server", "--target", "wasm32-unknown-unknown", "${ADDITIONAL}"]
+dependencies = ["wasm_build_prepare"]
+
+
+[tasks.deploy_client]
+command = "wasm-bindgen"
+args = [
+    "--target",
+    "web",
+    "--no-typescript",
+    "--out-dir",
+    "daps/mindup/static",
+    "--out-name",
+    "mindup_client",
+    "target/wasm32-unknown-unknown/${MODE}/mindup_client.wasm",
+]
+dependencies = ["choose_profile"]
+
+[tasks.deploy_server]
+script_runner = "@duckscript"
+script = '''
+rm daps/mindup/mindup_server.wasm
+cp target/wasm32-unknown-unknown/${MODE}/mindup_server.wasm daps/mindup/mindup_server.wasm
+'''
+dependencies = ["choose_profile"]
+
+
+[tasks.client]
+dependencies = ["build_client", "deploy_client"]
+
+[tasks.server]
+dependencies = ["build_server", "deploy_server"]
+
+
+[tasks.mindup]
+run_task = [
+    { name = ["copy_static", "copy_settings", "client", "server"] },
+]
+
+
+[tasks.app_runner]
+env = { RUSTFLAGS = "" }
+command = "cargo"
+args = ["build", "-p", "mindup_app_runner", "${ADDITIONAL}"]
+dependencies = ["choose_profile"]
+
+[tasks.run_mindup]
+env = { RUSTFLAGS = "" }
+command = "cargo"
+args = ["run", "-p", "mindup_app_runner", "${ADDITIONAL}"]
+dependencies = ["choose_profile"]
+
+
+[tasks.all]
+dependencies = ["mindup", "app_runner"]
+
+[tasks.run]
+run_task = "run_mindup"
+dependencies = ["all"]
