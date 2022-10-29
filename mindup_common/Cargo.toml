@@ -5,10 +5,10 @@ authors = [
     "Alexander Mescheryakov <freecoder.xx@gmail.com>",
     "Noogen Team <info.noogen@gmail.com>",
 ]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 repository = "https://github.com/noogen-projects/mindup"
-description = "The mindup dapla-application common library"
+description = "The mindup laplace-application common library"
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }

@@ -1,6 +1,6 @@
 # Mind Up
 
-The [dapla](https://github.com/noogen-projects/dapla)-application that upgrade the mind.
+The [laplace](https://github.com/noogen-projects/laplace)-application that upgrade the mind.
 
 ## Build
 
@@ -38,7 +38,7 @@ cargo make all -p debug
 
 ## Run example
 
-Run the dapla server with mindup application:
+Run the laplace server with mindup application:
 
 ```shell
 cargo make run

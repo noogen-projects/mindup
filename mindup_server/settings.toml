@@ -1,10 +1,11 @@
 [application]
 title = "MindUp"
 enabled = true
+access_token = "OTpFVytjgoRuUpoBACruBcBmxXmREVnmjFMhqAwfJdfQ8amoqkJxJncWZMVo9mGe"
 
 [permissions]
-required = ["database", "http"]
-allowed = ["database", "http"]
+required = ["database", "client_http"]
+allowed = ["database", "client_http"]
 
 [database]
-path = "daps/mindup/mindup.db"
+path = "mindup.db"

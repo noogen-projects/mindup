@@ -5,19 +5,19 @@ authors = [
     "Alexander Mescheryakov <freecoder.xx@gmail.com>",
     "Noogen Team <info.noogen@gmail.com>",
 ]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 repository = "https://github.com/noogen-projects/mindup"
-description = "The mindup dapla-application server WASM"
+description = "The mindup laplace-application server WASM"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
 anyhow = "1.0"
-thiserror = "1.0"
-serde_json = "1.0"
 borsh = "0.9"
-sql-builder = "3.1"
+laplace_wasm = { git = "https://github.com/noogen-projects/laplace.git" }
 mindup_common = { path = "../mindup_common" }
-dapla_wasm = { git = "https://github.com/noogen-projects/dapla.git" }
+serde_json = "1.0"
+sql-builder = "3.1"
+thiserror = "1.0"

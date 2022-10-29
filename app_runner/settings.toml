@@ -1,9 +1,17 @@
 [http]
 host = "127.0.0.1"
 port = 8080
+access_token = "24tpHRcbGKGYFGMYq66G3hfH8GQEYGTysXqiJyaCy9eR"
+upload_file_limit = 2147483648 # 2 GB
+print_url = true
+
+[ssl]
+enabled = true
+private_key_path = "cert/key.pem"
+certificate_path = "cert/cert.pem"
 
 [log]
-level = "info"
+spec = "info,regalloc=warn,wasmer_compiler_cranelift=warn,cranelift_codegen=warn"
 
-[daps]
-path = "daps"
+[lapps]
+path = "lapps"

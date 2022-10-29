@@ -5,15 +5,18 @@ authors = [
     "Alexander Mescheryakov <freecoder.xx@gmail.com>",
     "Noogen Team <info.noogen@gmail.com>",
 ]
-edition = "2018"
+edition = "2021"
 license = "MIT"
 repository = "https://github.com/noogen-projects/mindup"
-description = "The mindup dapla-application client WASM"
+description = "The mindup laplace-application client WASM"
 
 [dependencies]
 anyhow = "1.0"
-strum = { version = "0.20", features = ["derive"] }
-yew = { version = "0.17", features = ["web_sys"] }
-web-sys = { version = "0.3", features = ["HtmlInputElement"] }
+gloo-console = "0.2"
+laplace_yew = { git = "https://github.com/noogen-projects/laplace.git" }
 mindup_common = { path = "../mindup_common" }
-dapla_yew = { git = "https://github.com/noogen-projects/dapla.git" }
+strum = { version = "0.24", features = ["derive"] }
+wasm-web-helpers = "0.2"
+wasm-dom = "1.0"
+web-sys = { version = "0.3", features = ["HtmlInputElement"] }
+yew = { git = "https://github.com/yewstack/yew.git", features = ["csr"] }

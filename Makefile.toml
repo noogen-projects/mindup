@@ -7,37 +7,37 @@ additional_profiles = ["debug"]
 MODE = "release"
 ADDITIONAL = "--release"
 
-[tasks.choose_profile.env.debug]
-MODE = "debug"
-ADDITIONAL = "--color=auto" # it's a stub
+    [tasks.choose_profile.env.debug]
+    MODE = "debug"
+    ADDITIONAL = "--color=auto" # it's a stub
 
 [tasks.wasm_build_prepare]
 dependencies = ["choose_profile"]
 
-[tasks.wasm_build_prepare.env]
-RUSTFLAGS = "-Copt-level=s"
+    [tasks.wasm_build_prepare.env]
+    RUSTFLAGS = "-Copt-level=s"
 
-[tasks.wasm_build_prepare.env.debug]
-RUSTFLAGS = ""
+        [tasks.wasm_build_prepare.env.debug]
+        RUSTFLAGS = ""
 
 
 [tasks.create_dap_dir]
 script_runner = "@duckscript"
-script = "mkdir daps/mindup"
+script = "mkdir lapps/mindup"
 
 [tasks.copy_static]
 script_runner = "@duckscript"
 script = '''
-rm -r daps/mindup/static
-cp static daps/mindup/
+rm -r lapps/mindup/static
+cp static lapps/mindup/
 '''
 dependencies = ["create_dap_dir"]
 
 [tasks.copy_settings]
 script_runner = "@duckscript"
 script = '''
-rm daps/mindup/settings.toml
-cp mindup_server/settings.toml daps/mindup/settings.toml
+rm lapps/mindup/settings.toml
+cp mindup_server/settings.toml lapps/mindup/settings.toml
 '''
 dependencies = ["create_dap_dir"]
 
@@ -60,7 +60,7 @@ args = [
     "web",
     "--no-typescript",
     "--out-dir",
-    "daps/mindup/static",
+    "lapps/mindup/static",
     "--out-name",
     "mindup_client",
     "target/wasm32-unknown-unknown/${MODE}/mindup_client.wasm",
@@ -70,8 +70,8 @@ dependencies = ["choose_profile"]
 [tasks.deploy_server]
 script_runner = "@duckscript"
 script = '''
-rm daps/mindup/mindup_server.wasm
-cp target/wasm32-unknown-unknown/${MODE}/mindup_server.wasm daps/mindup/mindup_server.wasm
+rm lapps/mindup/mindup_server.wasm
+cp target/wasm32-unknown-unknown/${MODE}/mindup_server.wasm lapps/mindup/mindup_server.wasm
 '''
 dependencies = ["choose_profile"]
 
